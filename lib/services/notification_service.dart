@@ -41,6 +41,8 @@ class NotificationService extends ChangeNotifier {
   bool _isTtsEnabled = true;
   bool _initialized = false;
 
+  final Set<int> handledAlarmIds = {};
+
   bool get isInitialized => _initialized;
   bool get isTtsEnabled => _isTtsEnabled;
 
@@ -174,6 +176,7 @@ class NotificationService extends ChangeNotifier {
       for (final a in alarms) {
         if (a.notificationTitle.contains(prefix)) {
           await Alarm.stop(a.id);
+          handledAlarmIds.remove(a.id);
         }
       }
     } catch (e) {
@@ -238,7 +241,7 @@ class NotificationService extends ChangeNotifier {
           assetAudioPath: hasSoundLoop ? audioPath : _assetSilence,
           notificationTitle: '$icon $taskTitle',
           notificationBody: body,
-          loopAudio: isAlarm || isRingtone, // sound plays once; alarm/ringtone loop
+          loopAudio: isAlarm || isRingtone,
           vibrate: vibrate,
           volume: _resolveVolume(types),
           fadeDuration: isAlarm ? 3.0 : 0.0,

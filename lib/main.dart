@@ -15,6 +15,11 @@ import 'services/gemini_service.dart';
 import 'services/notification_service.dart';
 import 'services/background_service.dart';
 import 'services/sync_service.dart';
+import 'package:alarm/alarm.dart';
+import 'screens/reminder_alert_screen.dart';
+import 'dart:async';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,17 +73,88 @@ void main() async {
   );
 }
 
-class PlanMateApp extends StatelessWidget {
+class PlanMateApp extends StatefulWidget {
   final bool showOnboarding;
   const PlanMateApp({super.key, required this.showOnboarding});
 
   @override
+  State<PlanMateApp> createState() => _PlanMateAppState();
+}
+
+class _PlanMateAppState extends State<PlanMateApp> {
+  StreamSubscription<AlarmSettings>? _ringSubscription;
+  void _handleRingingAlarm(AlarmSettings alarmSettings) {
+    // If the audio loops (Alarms and Ringtones), we MUST show the UI 
+    // so the user has a way to stop it. Standard one-off notifications can be ignored.
+    if (!alarmSettings.loopAudio) return;
+    
+    final handledAlarms = NotificationService().handledAlarmIds;
+    if (handledAlarms.contains(alarmSettings.id)) return;
+    
+    handledAlarms.add(alarmSettings.id);
+
+    // Defer navigation until after the current frame to guarantee the 
+    // MaterialApp's Navigator is fully mounted, fixing cold-start races.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final nav = navigatorKey.currentState;
+      if (nav != null) {
+        nav.push(
+          MaterialPageRoute(
+            builder: (context) => ReminderAlertScreen(alarmSettings: alarmSettings),
+          ),
+        ).then((_) {
+          // When screen is dismissed (e.g., via Stop button), remove it from set
+          handledAlarms.remove(alarmSettings.id);
+        });
+      } else {
+        // If Navigator is still null, we failed to show the UI.
+        // Clear the ID so we don't get permanently stuck, and log the failure.
+        debugPrint('CRITICAL ERROR: Navigator was null in addPostFrameCallback. Failed to push ReminderAlertScreen for alarm ${alarmSettings.id}.');
+        handledAlarms.remove(alarmSettings.id);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 1. Listen for alarms ringing while the app is alive.
+    _ringSubscription = Alarm.ringStream.stream.listen(_handleRingingAlarm);
+    
+    // 2. Explicitly check for currently ringing alarms to handle cold-start gaps.
+    // If the stream fired before this widget mounted (and doesn't replay),
+    // this check guarantees we catch it and show the UI.
+    _checkColdStartAlarms();
+  }
+
+  Future<void> _checkColdStartAlarms() async {
+    try {
+      final alarms = Alarm.getAlarms();
+      for (final alarm in alarms) {
+        if (alarm.loopAudio && await Alarm.isRinging(alarm.id)) {
+          _handleRingingAlarm(alarm);
+          break; // Show one at a time
+        }
+      }
+    } catch (e) {
+      debugPrint('Error checking cold start alarms: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _ringSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'planMate',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
-      home: showOnboarding ? const OnboardingScreen() : const AppShell(),
+      home: widget.showOnboarding ? const OnboardingScreen() : const AppShell(),
     );
   }
 }
