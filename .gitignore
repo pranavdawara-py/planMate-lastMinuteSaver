@@ -1,0 +1,107 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication & Obfuscation
+app.*.symbols
+app.*.map.json
+
+# Android Studio / Native Android
+/android/app/debug
+/android/app/profile
+/android/app/release
+/android/.gradle
+/android/local.properties
+*.jks
+*.keystore
+
+# iOS / macOS Native
+**/ios/Pods/
+**/macos/Pods/
+**/ios/.symlinks/
+**/macos/.symlinks/
+
+# Firebase configuration & secrets
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
+
+# Node.js (Backend)
+backend/node_modules/
+backend/npm-debug.log
+
+# Secrets & Environment variables — NEVER commit these
+backend/.env
+assets/.env
+
+# AI system prompt & instructions — deploy separately to Cloud Run, never push to GitHub
+# If exposed, users can craft jailbreaks and bypass scope restrictions
+backend/system_prompt.txt
+
+# AI agent working files — local only, never push
+# These are developer/agent reference documents, NOT part of the app
+skills/
+.agents/
+.dev/
+extract.py
+fix_models.py
+prompt*.txt
+response.txt
+reply.txt
+implementationPlan_review.txt
+docs/handoff/
+.metadata
+
+# Developer notes (ad-hoc planning/design files at project root)
+claude_suggestion_finalDesiredApp.md
+*_suggestion_*.md
+*_finalDesired*.md
+*_review*.md
+*_handoff*.md
+
+# Backend test/debug scripts
+backend/test_models.js
+
+# Personal app data (Hive DB, chat history) — stored in device app-data dir,
+# never in project folder, but listed here for completeness
+*.hive
+*.lock
+
+# Temporary Claude broken files
+updated_broken_files/
+
+# Backup and AI generated folders/zips
+planMate_fixed/
+planMate_v2/
+*.zip
+

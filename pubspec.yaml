@@ -1,0 +1,66 @@
+name: planmate
+description: AI-powered productivity companion and daily scheduler.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Navigation & State Management
+  provider: ^6.1.2
+  file_picker: ^8.0.0
+
+  # Google Fonts & UI Design
+  google_fonts: ^6.1.0
+  flutter_dotenv: ^5.1.0
+
+  # Local Databases & Session Cache
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.1
+
+  # Backend & Cloud Sync
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.0.0
+
+  # AI Integration
+  http: ^1.2.0
+
+  # Hardware Alerts & Notifications
+  flutter_local_notifications: ^17.0.0
+  alarm: ^3.0.1
+  flutter_tts: ^3.8.3
+  flutter_background_service: ^5.0.5
+  connectivity_plus: ^5.0.2
+
+  # File Export & Sharing
+  pdf: ^3.10.4
+  printing: ^5.11.0
+  share_plus: ^7.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.8
+  rename_app: ^1.6.6
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/.env
+    - assets/logo.png
+    - assets/alarm.mp3
+    - assets/silence.mp3
