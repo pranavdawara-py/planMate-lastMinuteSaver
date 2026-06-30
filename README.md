@@ -1,68 +1,59 @@
-# PlanMate — AI Chatbot Assisted Productivity App
+<div align="center">
+  <img src="assets/icon/icon.png" width="120" alt="PlanMate Logo">
+  <h1>PlanMate: The Intelligent AI Scheduler</h1>
+  <p><b>Transform chaotic thoughts into a perfectly orchestrated day.</b></p>
 
-> **The Last-Minute Life Saver** · Built for the Google AI Studio Hackathon
+  <a href="https://github.com/pranavdawara-py/planMate-lastMinuteSaver/releases/latest">
+    <img src="https://img.shields.io/badge/Download-APK-blue?style=for-the-badge&logo=android" alt="Download APK">
+  </a>
+</div>
 
-PlanMate is an AI-powered mobile productivity companion that helps students, professionals, and entrepreneurs plan, prioritize, and complete tasks before deadlines are missed. Instead of manual data entry, users simply chat in natural language and PlanMate automatically extracts tasks, schedules them into a visual timeline, and sets hardware-level alarms.
+<br/>
 
----
+## ðŸš€ What is PlanMate?
+Traditional calendar apps force you to manually click, drag, and set times for every single task. **PlanMate** is a next-generation AI scheduling assistant that lets you plan your entire day using natural language. 
 
-## ?? Download
+Just tell PlanMate what you need to do, and it will intelligently extract the tasks, calculate durations, organize them into categories, and set strict Full-Screen Alarms to keep you on track.
 
-**[? Download Latest APK](https://github.com/pranavdawara-py/planMate-lastMinuteSaver/releases/latest)**
+## âœ¨ Core Features (The "Wow" Factor)
 
----
+### ðŸ§  1. Intelligent Natural Language Parsing
+Type a single paragraph containing multiple tasks, relative times (e.g., *"in 2 hours"*), and exact times. PlanMate's AI instantly breaks it down into a structured schedule.
 
-## ? Key Features
+### ðŸ”„ 2. Dynamic Conversational Rescheduling
+Meetings run late? Plans change? Just tell the chatbot: *"Push my coding session back by 15 minutes."* The AI understands the context, finds the existing task, and mathematically shifts your schedule without you having to touch a single form field.
 
-- **Conversational Task Extraction** — Chat naturally with the AI to instantly generate structured tasks and schedule blocks
-- **Visual Daily Timeline** — Dynamic scrollable timeline that organizes tasks alongside fixed schedule events
-- **Intelligent Recurrence** — Daily, weekly, and monthly recurring tasks that auto-generate next occurrences on completion
-- **Context-Aware Alarms** — Hardware-level background alarms and notifications that fire reliably even when the app is closed
-- **Offline-First** — Fully functional without internet using local Hive database
-- **Cloud Sync** — Firebase-powered cross-device sync for logged-in users
+### â° 3. Premium Full-Screen Alarms
+No more easily-ignored tray notifications. When a strict task is due, PlanMate triggers a stunning, pulsing **Full-Screen Alarm UI** that locks over your screen and forces you to acknowledge your commitment. 
 
----
-
-## ?? Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Mobile App | Flutter & Dart |
-| Local Storage | Hive (NoSQL) |
-| State Management | Provider |
-| Backend Proxy | Node.js & Express on **Google Cloud Run** |
-| AI Engine | **Google Gemini API** |
-| Authentication | **Firebase Auth** |
-| Cloud Database | **Cloud Firestore** |
+### ðŸ—‚ï¸ 4. Multi-Session Task Management
+Tell the AI to *"Schedule deep work for 1 hour now, and 2 hours tonight."* It automatically creates a single task tracked across multiple separate time sessions, managing the alarms for both independently.
 
 ---
 
-## ?? Google Technologies
+## ðŸ› ï¸ Testing the Magic (Demo Prompts)
 
-1. **Google Gemini API** — Core AI for natural language task extraction
-2. **Google Cloud Run** — Secure backend proxy hosting
-3. **Firebase Authentication** — User sign-up and login
-4. **Cloud Firestore** — Real-time cloud sync
+Want to see the power of PlanMate? Install the APK and try typing these exact prompts into the AI Chatbot:
 
----
+**The Complex Organizer:**
+> *"Schedule a 'Quick Sync' meeting starting exactly at 15:20 for 10 minutes, and set a strict alarm reminder for it so I don't miss it. Next, add a 'Product Strategy' task with two different sessions: the first session starting 30 minutes from now for 60 minutes, and the second session exactly at 18:00 for 2 hours. Just set standard notifications for the strategy sessions."*
 
-## ?? Running Locally
-
-```bash
-git clone https://github.com/pranavdawara-py/planMate-lastMinuteSaver.git
-cd planMate-lastMinuteSaver
-# Create assets/.env from the example and fill in your backend URL
-cp backend/.env.example assets/.env
-flutter pub get
-flutter run
-```
+**The Contextual Rescheduler:**
+> *"That sync ran slightly over. Push my entire 'Product Strategy' task back by exactly 10 minutes, and upgrade the reminder for its first session to a strict alarm so I jump right into it!"*
 
 ---
 
-## ?? Security Note
+## ðŸ“¥ Installation
 
-API keys are stored in `.env` files excluded from this repository. The backend proxy on Google Cloud Run secures the Gemini API key — the Flutter app never holds it directly. See `backend/.env.example` for the required environment variable template.
+1. Navigate to the **[Releases](https://github.com/pranavdawara-py/planMate-lastMinuteSaver/releases)** tab.
+2. Download `planMate.apk`.
+3. Transfer it to your Android device and tap to install.
+4. **Important:** For the Full-Screen Alarms to work perfectly, please ensure PlanMate has `Display over other apps` and `Alarms & Reminders` permissions granted in your Android settings!
 
 ---
 
-*Built with Flutter + Google AI Studio*
+## ðŸ’» Tech Stack
+- **Frontend:** Flutter & Dart (Cross-platform UI)
+- **AI Brain:** Google Gemini API (Natural Language Parsing & Intent Extraction)
+- **Local Database:** Hive (Fast NoSQL on-device storage)
+- **Scheduling Engine:** `alarm` package (Reliable background execution)
